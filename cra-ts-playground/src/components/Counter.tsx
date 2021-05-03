@@ -1,5 +1,7 @@
 import React, { useState, useMemo} from 'react';
 
+import { useEffect } from '../utility';
+
 export const Counter = () => {
   const [count, setCount] = useState(0)
 
@@ -15,6 +17,9 @@ export const Counter = () => {
   //     console.log('out')
   //   }
   // }, []);
+  useEffect(() => {
+    console.log('count',count)
+  }, [count])
 
   const plus = () => {
     setCount(count + 1);

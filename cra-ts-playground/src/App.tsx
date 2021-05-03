@@ -29,7 +29,7 @@ function App() {
           style={{display: 'flex'}}
         >
           {Components.map(x => (
-            <NavButton key={x.path} path={x.path} handleShow={handleShow} />
+            <NavButton key={x.path} path={x.path} />
           ))}
         </header>
         <Switch>
