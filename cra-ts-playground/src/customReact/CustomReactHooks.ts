@@ -5,21 +5,22 @@ type Hooks = {
 
 const hooks: Hooks[] = []; // independent
 
+const isDepsChanged = (_idx, newDeps) => {
+  const oldDeps = hooks[_idx]?.deps;
+  let hasChanged = true;
+  if ( oldDeps ) {
+    hasChanged = newDeps.some((x, i) => {
+      return !Object.is(x, oldDeps[i])
+    });
+  }
+  return hasChanged;
+};
+
+
 export const CustomReactHooks = (function() {
   let idx = 0; // will rerender
 
-  const isDepsChanged = (_idx, newDeps) => {
-    const oldDeps = hooks[_idx]?.deps;
-    let hasChanged = true;
-    if ( oldDeps ) {
-      hasChanged = newDeps.some((x, i) => {
-        return !Object.is(x, oldDeps[i])
-      });
-    }
-    return hasChanged;
-  }
-
-   function useEffect(callback, deps) {
+  function useEffect(callback, deps) {
     const _idx = idx;
     if( isDepsChanged(_idx, deps) ) {
       callback();
@@ -29,7 +30,7 @@ export const CustomReactHooks = (function() {
     idx ++;
   }
 
-   function useMemo(factory, deps) {
+  function useMemo(factory, deps) {
     const _idx = idx;
     let value = hooks[idx]?.memorizedValue;
 
