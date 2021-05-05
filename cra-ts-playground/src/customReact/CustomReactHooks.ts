@@ -20,20 +20,15 @@ export const CustomReactHooks = (function() {
 
   function useEffect(effect: () => void, deps: any[]) {
     const _idx = idx;
-    if( isDepsChanged(_idx, deps) ) {
-      hooks[_idx]?.cleanUpEffect?.()
-      let result = effect();
+    let cleanupEffect = hooks[_idx]?.cleanupEffect;
 
-      hooks[_idx] = {
-        ...hooks[_idx],
-        deps,
-        cleanUpEffect: result,
-        hookName: 'useEffect',
-      };
+    if( isDepsChanged(_idx, deps) ) {
+      cleanupEffect?.()
+      cleanupEffect = effect();
     }
 
     hooks[_idx] = {
-      ...hooks[_idx],
+      cleanupEffect,
       deps,
       hookName: 'useEffect',
     };
@@ -42,25 +37,20 @@ export const CustomReactHooks = (function() {
 
   function useMemo(factory: () => void, deps: any[]) {
     const _idx = idx;
-    let value = hooks[idx]?.memorizedValue;
+    let memorizedValue = hooks[idx]?.memorizedValue;
 
     if( isDepsChanged(_idx, deps) ) {
-      value = factory();
-      hooks[_idx] = {
-        deps,
-        ...hooks[_idx],
-        memorizedValue: value
-      };
+      memorizedValue = factory();
     }
 
     hooks[_idx] = {
       deps,
-      ...hooks[_idx],
+      memorizedValue,
       hookName: 'useMemo',
     };
     idx ++;
 
-    return value;
+    return memorizedValue;
   }
 
   return {
