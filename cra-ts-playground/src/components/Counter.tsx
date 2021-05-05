@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-
-import { CustomReact }  from "../customReact";
+import { useEffect, usePlease } from "../customReact";
 
 export const Counter = () => {
   const [test, setTest] = useState(0);
   const [count, setCount] = useState(0);
 
   /**/
-  /**/
-
-  CustomReact.useEffect(() => {
+  useEffect(() => {
     console.log('render', count);
     return () => console.log('unmount');
   }, [count]);
+  usePlease(() => {
+    console.log('render', count);
+    return () => console.log('unmount');
+  }, [count]);
+  /**/
 
   const plus = () => {
     setCount(count + 1);
