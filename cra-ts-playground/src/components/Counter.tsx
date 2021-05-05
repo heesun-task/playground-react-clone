@@ -59,7 +59,8 @@ export const Counter = () => {
       </section>
 
       <section>
-        <h2>memorizedValue : {`${memorizedValue}`}</h2>
+        <h2>memorizedValue</h2>
+        <h3>{`counter: ${memorizedValue}`}</h3>
       </section>
 
       <section>
