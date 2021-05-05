@@ -71,8 +71,10 @@ export const Counter = () => {
       </section>
 
       <section>
-        <button onClick={() => {console.log('test1')}}>test1</button>
-        <button onClick={() => {setTest(test + 1)}}>test2: {test}</button>
+        <button onClick={() => {
+          setTest(test + 1);
+          console.log('rerenderDom');
+        }}>rerender test</button>
       </section>
     </div>
   )
