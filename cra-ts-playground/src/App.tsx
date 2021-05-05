@@ -5,7 +5,6 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import './customReact'
 
 import './App.css';
 import { Counter } from './components/Counter';
@@ -16,7 +15,6 @@ const Components = [
 ];
 
 function App() {
-
   return (
     <div className="App">
       <Router>

@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import { CustomReactHooks } from "../customReact/src/CustomReactHooks";
-// import {
-//   useEffect,
-//   useMemo,
-// } from "../customReact";
+import { CustomReactHooks } from "../customReact/CustomReactHooks";
 
 export const Counter = () => {
-  const CustomHook = CustomReactHooks();
-  const { useEffect, useMemo } = CustomHook;
+  const { useEffect, useMemo } = CustomReactHooks();
 
   const [test, setTest] = useState(0);
   const [count, setCount] = useState(0);
@@ -32,10 +27,10 @@ export const Counter = () => {
 
   const memorizedValue = useMemo(() => {
     if(count === 0 )
-      return '@';
+      return 'zero';
     if(count < 0 )
-      return '-';
-    return '+';
+      return 'minus';
+    return 'plus';
   }, [count]);
 
 
@@ -64,15 +59,15 @@ export const Counter = () => {
       </section>
 
       <section>
+        <h2>memorizedValue : {`${memorizedValue}`}</h2>
+      </section>
+
+      <section>
         <h1>counter2: {count2}</h1>
         <div>
           <button onClick={minus2}>-</button>
           <button onClick={plus2}>+</button>
         </div>
-      </section>
-
-      <section>
-        <h2>memorizedValue : {`${memorizedValue}`}</h2>
       </section>
 
       <section>

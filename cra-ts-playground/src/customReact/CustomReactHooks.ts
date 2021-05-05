@@ -1,9 +1,8 @@
+const hooks = []; // independent
+const memorizedValue = [];
 
-let hooks = []; // 독립적
 export const CustomReactHooks = (function() {
   let idx = 0; // rerender
-
-  console.log('CustomReactHooks', hooks, idx)
 
   const isDepsChanged = (_idx, newDeps) => {
     const oldDeps = hooks[_idx];
@@ -28,10 +27,11 @@ export const CustomReactHooks = (function() {
 
    function useMemo(factory, deps) {
     const _idx = idx;
-    let value = null;
+    let value = memorizedValue[_idx];
 
     if(isDepsChanged(_idx, deps)) {
       value =  factory();
+      memorizedValue[_idx] = value;
     }
 
     hooks[_idx] = deps;
