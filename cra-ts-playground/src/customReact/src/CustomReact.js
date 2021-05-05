@@ -1,15 +1,11 @@
 import {
-  dispatch
-} from "./disptach";
+  CustomReactHooks as React,
+} from './CustomReactHooks'
 
 export function useEffect (callback, deps) {
-  dispatch('useEffect', callback, deps)
+  React.useEffect(callback,deps);
 }
 
 export function useMemo (factory, deps) {
-  dispatch('useMemo', factory, deps)
-}
-
-export function usePlease (callback, deps) {
-  dispatch('usePlease', callback, deps)
+  return React.useMemo(factory,deps);
 }

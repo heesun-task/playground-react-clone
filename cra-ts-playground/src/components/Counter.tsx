@@ -1,20 +1,34 @@
 import React, { useState } from 'react';
-import {
-  useEffect,
-  useMemo,
-  usePlease
-} from "../customReact";
+import { CustomReactHooks } from "../customReact/src/CustomReactHooks";
+// import {
+//   useEffect,
+//   useMemo,
+// } from "../customReact";
 
 export const Counter = () => {
+  const CustomHook = CustomReactHooks();
+  const { useEffect, useMemo } = CustomHook;
+
   const [test, setTest] = useState(0);
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(0);
 
-  /**/
   useEffect(() => {
-    console.log('render', count);
-    return () => console.log('unmount');
+    console.log('mount')
+    return () => { console.log('unmount'); } // 구현 전
+  }, []);
+
+  useEffect(() => {
+    console.log('count1', count);
   }, [count]);
+
+  useEffect(() => {
+    console.log('count2', count2);
+  }, [count2]);
+
+  useEffect(() => {
+    console.log('count all', count, count2);
+  }, [count, count2]);
 
   const memorizedValue = useMemo(() => {
     if(count === 0 )
