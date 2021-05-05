@@ -4,6 +4,7 @@ type HookNames =
 
 export type HooksType = {
   memorizedValue?: any,
+  cleanUpEffect?: any;
 
   deps: any,
   hookName: HookNames,

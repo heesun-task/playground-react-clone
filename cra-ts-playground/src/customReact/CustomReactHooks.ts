@@ -18,13 +18,22 @@ const isDepsChanged = (_idx, newDeps) => {
 export const CustomReactHooks = (function() {
   let idx = 0; // will rerender
 
-  function useEffect(callback: () => void, deps: any[]) {
+  function useEffect(effect: () => void, deps: any[]) {
     const _idx = idx;
     if( isDepsChanged(_idx, deps) ) {
-      callback();
+      hooks[_idx]?.cleanUpEffect?.()
+      let result = effect();
+
+      hooks[_idx] = {
+        ...hooks[_idx],
+        deps,
+        cleanUpEffect: result,
+        hookName: 'useEffect',
+      };
     }
 
     hooks[_idx] = {
+      ...hooks[_idx],
       deps,
       hookName: 'useEffect',
     };

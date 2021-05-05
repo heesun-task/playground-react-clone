@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect as ReactUseEffect } from 'react';
 import { CustomReactHooks } from "../customReact/CustomReactHooks";
 
 export const Counter = () => {
@@ -15,6 +15,7 @@ export const Counter = () => {
 
   useEffect(() => {
     console.log('count1', count);
+    return () => {console.log('count1 unmount')}
   }, [count]);
 
   useEffect(() => {
