@@ -1,10 +1,9 @@
-import React  from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Link,
   Switch,
   Route,
-  useHistory,
 } from 'react-router-dom';
 
 import './App.css';
@@ -16,12 +15,6 @@ const Components = [
 ];
 
 function App() {
-  const history = useHistory();
-
-  const handleShow = (path) => {
-    history.push(path)
-  }
-
   return (
     <div className="App">
       <Router>
@@ -40,7 +33,7 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 const NavButton = ({path}) => {
   return (
@@ -48,6 +41,6 @@ const NavButton = ({path}) => {
       <button>{path || 'none'}</button>
     </Link>
   )
-}
+};
 
 export default App;

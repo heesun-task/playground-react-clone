@@ -1,6 +1,10 @@
 body {
   font-family: Arial, Georgia, AppleGothic, serif;
 }
+section{
+  padding: 30px;
+  border-bottom: 10px solid #eee;
+}
 
 button{
   min-width:100px;
