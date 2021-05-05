@@ -1,27 +1,6 @@
-import React, { useState } from 'react';
-
-// export const customReactHooks = (function () {
-//   let prevDependencyArray = [];
-//   return (callback, dependencyArray) => {
-//     for (const i in dependencyArray) {
-//       if (dependencyArray[i] !== prevDependencyArray[i]) {
-//         prevDependencyArray = dependencyArray;
-//         callback();
-//         return;
-//       }
-//     }
-//   };
-// })();
-
-let customReactHooks = [];
-let idx = 0;
-
-const state = {
-  memorized: [],
-
-}
-export function useEffect(callback, deps) {
-  const oldDeps = customReactHooks[idx];
+export function useEffect({hooks,idx}, callback, deps) {
+  // console.log('@@useEffect');
+  const oldDeps = hooks[idx];
   let hasChanged = true;
   if (oldDeps) {
     hasChanged = deps.some((x, i) => !Object.is(x, oldDeps[i]));
@@ -29,15 +8,25 @@ export function useEffect(callback, deps) {
   if (hasChanged) {
     callback();
   }
-  customReactHooks[idx] = deps;
+  hooks[idx] = deps;
+  idx++;
 }
 
+export function useMemo({hooks,idx}, factory, deps) {
+  const oldDeps = hooks[idx];
+  let hasChanged = true;
+  let value = null;
+  if (oldDeps) {
+    hasChanged = deps.some((x, i) => !Object.is(x, oldDeps[i]));
+  }
+  if (hasChanged) {
+    value = factory();
+  }
+  hooks[idx] = deps;
+  // console.log('@@useMemo', value);
+  return value;
+}
 
-
-export function usePlease(callback, deps) {
-  console.log(this)
-
-  console.log('usePlease',callback(),deps)
-
-
+export function usePlease({hooks,idx},callback, deps) {
+  console.log('@@usePlease');
 }

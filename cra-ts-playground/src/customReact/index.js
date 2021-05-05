@@ -1,5 +1,7 @@
 console.log('// customReact');
+
 export {
   useEffect,
-  usePlease
+  useMemo,
+  usePlease,
 } from './src/CustomReact'
