@@ -2,7 +2,7 @@ type HookNames =
   'useEffect'
   | 'useMemo';
 
-export type HooksType = {
+export type HookProps = {
   memorizedValue?: any,
   cleanupEffect?: any;
 

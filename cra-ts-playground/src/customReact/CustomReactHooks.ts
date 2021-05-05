@@ -1,17 +1,19 @@
 import {
-  HooksType,
+  HookProps,
 } from "./type";
 
-const hooks: HooksType[] = []; // independent
+const hooks: HookProps[] = []; // independent
 
 const isDepsChanged = (_idx, newDeps) => {
   const oldDeps = hooks[_idx]?.deps;
   let hasChanged = true;
+
   if ( oldDeps ) {
     hasChanged = newDeps.some((x, i) => {
       return !Object.is(x, oldDeps[i])
     });
   }
+
   return hasChanged;
 };
 

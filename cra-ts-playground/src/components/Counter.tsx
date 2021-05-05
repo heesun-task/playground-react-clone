@@ -1,7 +1,8 @@
-import React, { useState, useEffect as ReactUseEffect } from 'react';
+import React, { useState } from 'react';
 import { CustomReactHooks } from "../customReact/CustomReactHooks";
 
 export const Counter = () => {
+  console.log('----------')
   const { useEffect, useMemo } = CustomReactHooks();
 
   const [test, setTest] = useState(0);
