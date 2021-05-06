@@ -11,7 +11,7 @@ export const Counter = () => {
 
   useEffect(() => {
     console.log('mount')
-    return () => { console.log('unmount'); } // 구현 전
+    return () => { console.log('unmount'); }
   }, []);
 
   useEffect(() => {
