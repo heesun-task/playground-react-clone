@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
-import { CustomReactHooks } from "../customReact/CustomReactHooks";
+// import { useEffect, useMemo } from "../customReact";
+// import { useEffect, useMemo } from "../customReact/CustomReactHooks";
+// import { CustomReactHooks } from "../customReact/CustomReactHooks";
+import CustomHooks from "../customReact";
 
 export const Counter = () => {
-  console.log('----------')
-  const { useEffect, useMemo } = CustomReactHooks();
+  const { useEffect, useMemo } = CustomHooks();
 
   const [test, setTest] = useState(0);
   const [count, setCount] = useState(0);
   const [count2, setCount2] = useState(0);
-
-  useEffect(() => {
-    console.log('mount')
-    return () => { console.log('unmount'); }
-  }, []);
 
   useEffect(() => {
     console.log('count1', count);
@@ -21,6 +18,7 @@ export const Counter = () => {
 
   useEffect(() => {
     console.log('count2', count2);
+    return () => {console.log('count2 unmount')}
   }, [count2]);
 
   useEffect(() => {

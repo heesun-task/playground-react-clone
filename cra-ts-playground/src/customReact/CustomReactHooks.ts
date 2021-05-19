@@ -1,15 +1,9 @@
-import {
-  HookProps,
-} from "./type";
-
-const hooks: HookProps[] = []; // independent
-
-const isDepsChanged = (_idx, newDeps) => {
+const isDepsChanged = (hooks, _idx, deps) => {
   const oldDeps = hooks[_idx]?.deps;
   let hasChanged = true;
 
   if ( oldDeps ) {
-    hasChanged = newDeps.some((x, i) => {
+    hasChanged = deps.some((x, i) => {
       return !Object.is(x, oldDeps[i])
     });
   }
@@ -17,46 +11,45 @@ const isDepsChanged = (_idx, newDeps) => {
   return hasChanged;
 };
 
-export const CustomReactHooks = (function() {
-  let idx = 0; // will rerender
 
-  function useEffect(effect: () => void, deps: any[]) {
-    const _idx = idx;
-    let cleanupEffect = hooks[_idx]?.cleanupEffect;
+export const CustomReactHooks = (hookName) => {
 
-    if( isDepsChanged(_idx, deps) ) {
+  function customUseEffect({
+    idx,
+    hooks,
+    effect,
+    deps
+  }) {
+    let cleanupEffect = hooks[idx]?.cleanupEffect;
+
+    if( isDepsChanged(hooks, idx, deps) ) {
       cleanupEffect?.()
       cleanupEffect = effect();
     }
-
-    hooks[_idx] = {
-      cleanupEffect,
+    return {
       deps,
+      cleanupEffect,
       hookName: 'useEffect',
     };
-    idx ++;
   }
 
-  function useMemo(factory: () => void, deps: any[]) {
+  function customUseMemo({idx, hooks, factory, deps}) {
     const _idx = idx;
     let memorizedValue = hooks[idx]?.memorizedValue;
 
-    if( isDepsChanged(_idx, deps) ) {
+    if( isDepsChanged(hooks, _idx, deps) ) {
       memorizedValue = factory();
     }
 
-    hooks[_idx] = {
+    return {
       deps,
       memorizedValue,
       hookName: 'useMemo',
     };
-    idx ++;
-
-    return memorizedValue;
   }
 
   return {
-    useEffect,
-    useMemo,
-  }
-});
+    customUseEffect,
+    customUseMemo,
+  };
+};
