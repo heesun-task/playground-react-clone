@@ -1,60 +1,59 @@
-import React, { useState } from 'react';
-// import { useEffect, useMemo } from "../customReact";
-// import { useEffect, useMemo } from "../customReact/CustomReactHooks";
-// import { CustomReactHooks } from "../customReact/CustomReactHooks";
-import CustomHooks from "../customReact";
+import React  from 'react';
+import CustomReact from '../customReact';
 
 export const Counter = () => {
-  const { useEffect, useMemo } = CustomHooks();
+  const [count, setCount] = CustomReact.useState(0);
+  const [count2, setCount2] = CustomReact.useState(0);
 
-  const [test, setTest] = useState(0);
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
-
-  useEffect(() => {
-    console.log('count1', count);
+  CustomReact.useEffect(() => {
+    console.log('count1', count());
     return () => {console.log('count1 unmount')}
-  }, [count]);
+  }, [count()]);
 
-  useEffect(() => {
-    console.log('count2', count2);
-    return () => {console.log('count2 unmount')}
-  }, [count2]);
 
-  useEffect(() => {
-    console.log('count all', count, count2);
-  }, [count, count2]);
-
-  const memorizedValue = useMemo(() => {
-    if(count === 0 )
+  const memorizedValue = CustomReact.useMemo(() => {
+    // @ts-ignore
+    if(count() === 0 )
       return 'zero';
-    if(count < 0 )
+    // @ts-ignore
+    if(count() < 0 )
       return 'minus';
     return 'plus';
-  }, [count]);
-
+  }, [count()]);
 
   const plus = () => {
-    setCount(count + 1);
+    // @ts-ignore
+    console.log('plus', count() + 1)
+    // @ts-ignore
+    setCount(count()+1)
   };
+
   const minus = () => {
-    setCount(count - 1);
+    // @ts-ignore
+    console.log('minus', count() - 1)
+    // @ts-ignore
+    setCount(count() - 1);
   };
   const plus2 = () => {
-    setCount2(count2 + 1);
+    // @ts-ignore
+    setCount2(count2() + 1);
   };
   const minus2 = () => {
-    setCount2(count2 - 1);
+    // @ts-ignore
+    setCount2(count2() - 1);
   };
 
   return(
     <div>
       <section>
-        <h1>counter: {count}</h1>
+        <h1>counter: {CustomReact.render(count)}</h1>
 
         <div>
           <button onClick={minus}>-</button>
-          <button onClick={plus}>+</button>
+          {/*<button onClick={plus}>+</button>*/}
+          <button onClick={()=> {
+            CustomReact.render(plus)
+          }}>+</button>
         </div>
       </section>
 
@@ -64,7 +63,7 @@ export const Counter = () => {
       </section>
 
       <section>
-        <h1>counter2: {count2}</h1>
+        <h1>counter2: {count2()}</h1>
         <div>
           <button onClick={minus2}>-</button>
           <button onClick={plus2}>+</button>
@@ -73,7 +72,6 @@ export const Counter = () => {
 
       <section>
         <button onClick={() => {
-          setTest(test + 1);
           console.log('rerenderDom');
         }}>rerender test</button>
       </section>

@@ -1,4 +1,5 @@
 const isDepsChanged = (hooks, _idx, deps) => {
+  console.log('isDepsChanged',hooks, _idx, deps)
   const oldDeps = hooks[_idx]?.deps;
   let hasChanged = true;
 
@@ -12,7 +13,16 @@ const isDepsChanged = (hooks, _idx, deps) => {
 };
 
 
-export const CustomReactHooks = (hookName) => {
+const CustomReactHooks = (() => {
+
+  // function customUseState({
+  //   value,
+  // }) {
+  //   return {
+  //     value: value,
+  //     hookName: 'useState',
+  //   };
+  // }
 
   function customUseEffect({
     idx,
@@ -26,6 +36,7 @@ export const CustomReactHooks = (hookName) => {
       cleanupEffect?.()
       cleanupEffect = effect();
     }
+
     return {
       deps,
       cleanupEffect,
@@ -34,10 +45,9 @@ export const CustomReactHooks = (hookName) => {
   }
 
   function customUseMemo({idx, hooks, factory, deps}) {
-    const _idx = idx;
     let memorizedValue = hooks[idx]?.memorizedValue;
 
-    if( isDepsChanged(hooks, _idx, deps) ) {
+    if( isDepsChanged(hooks, idx, deps) ) {
       memorizedValue = factory();
     }
 
@@ -49,7 +59,10 @@ export const CustomReactHooks = (hookName) => {
   }
 
   return {
+    // customUseState,
     customUseEffect,
     customUseMemo,
   };
-};
+})();
+
+export default CustomReactHooks;
