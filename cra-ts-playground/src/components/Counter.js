@@ -19,7 +19,7 @@ export const Counter = () => {
   //     setA(10);
   //   }, 1000);
   // }, []);
-  // console.log('@@',a())
+  // console.log('@@',a)
 
   return {
     render: () => {

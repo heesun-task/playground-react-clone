@@ -18,6 +18,8 @@ import { Counter } from './components/Counter.js';
 
 function App() {
 
+  /* state 업데이트 테스트 */
+  /* useEffect도 의도대로 실행되고 있음. */
   let Component;
   Component = CustomReact.render(Counter)
   console.log('-')
@@ -36,6 +38,10 @@ function App() {
 
   return (
     <div className="App">
+
+
+
+
       {/*<Router>*/}
       {/*  <header*/}
       {/*    style={{display: 'flex'}}*/}
