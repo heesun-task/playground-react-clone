@@ -1,5 +1,4 @@
 const isDepsChanged = (hooks, _idx, deps) => {
-  console.log('isDepsChanged',hooks, _idx, deps)
   const oldDeps = hooks[_idx]?.deps;
   let hasChanged = true;
 

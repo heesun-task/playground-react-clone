@@ -1,14 +1,15 @@
 // customReact
 import CustomReactHooks from "./CustomReactHooks";
 
-const hooks = [];
-
 const CustomReact = (() => {
+  let hooks = [];
   let idx = 0;
 
-  const render = (fn) => {
+  const render = (component) => {
     idx = 0;
-    return fn();
+    const c = component()
+    c.render()
+    return c
   }
 
   const updateHook = (index, content) => {
@@ -18,13 +19,12 @@ const CustomReact = (() => {
 
   const useState = (initialState) => {
     const _idx = idx;
+    let state = hooks[_idx] || initialState;
 
-    let state = () => hooks[_idx]?.state || initialState;
-    updateHook(_idx, {state:  initialState});
-
-    const setState = (newValue) => {
-      hooks[_idx].state = newValue;
+    const setState = (newState) => {
+      hooks[_idx] = newState;
     };
+    idx++;
 
     return [state, setState];
   };
