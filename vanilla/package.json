@@ -2,14 +2,14 @@
   "name": "vanilla",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "live-server --port=3000 --browser=chrome"
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "live-server": "^1.2.1"
+    "parcel-bundler": "^1.12.5"
   }
 }
